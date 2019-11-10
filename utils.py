@@ -62,7 +62,10 @@ def half_search(arr, N, startIndex, endIndex):
 
 def half_search_2(arr, N, startIndex, endIndex):
     if startIndex == endIndex:
-        return startIndex
+        if arr[startIndex] > N:
+            return startIndex
+        else:
+            return -1
 
     if endIndex - startIndex == 1:
 
@@ -103,11 +106,12 @@ def half_search_2(arr, N, startIndex, endIndex):
 def test_half_search():
     arr = [2, 2, 3, 3, 3, 3, 4, 5, 5, 5, 7, 8, 12]
 
+
     arr = rank(arr)
 
     print(arr)
 
-    index = half_search_2(arr, 4, 0, len(arr) - 1)
+    index = half_search_2(arr, 468, 0, len(arr) - 1)
 
     print(index)
 

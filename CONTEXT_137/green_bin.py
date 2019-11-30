@@ -3,40 +3,33 @@ def ccc(n):
     result = (n * (n-1))//2
     return result
 
+
+
+def sortString(a):
+    a = list(a)
+    a.sort()
+    return "".join(a)
+
+
 def calculate(arr):
     if len(arr) == 0:
         return 0
 
-    if len(arr) == 1:
-        return 0
-
-    criteron = arr[0]
-    res = [0]
-
-    nextarr = []
-
-    for i in range(1,len(arr)):
-        if tellIsTheSame(criteron,arr[i]):
-            res.append(i)
+    dict = {}
+    for i in range(len(arr)):
+        s = sortString(arr[i])
+        if dict.get(s) == None:
+            dict.setdefault(s,1)
         else:
-            nextarr.append(arr[i])
+            dict.__setitem__(s,dict.get(s) + 1)
 
-    return ccc(len(res)) + calculate(nextarr)
 
-def tellIsTheSame(s1,s2):
-    s1 = list(s1)
-    s2 = list(s2)
+    sum = 0
+    for v in dict.values():
+        sum += ccc(v)
 
-    s1.sort()
-    s2.sort()
+    return sum
 
-    length = len(s1)
-
-    for i in range(length):
-        if s1[i] != s2[i]:
-            return False
-
-    return True
 
 
 arr = []
@@ -48,3 +41,5 @@ for i in range(N):
 
 result = calculate(arr)
 print(result)
+
+

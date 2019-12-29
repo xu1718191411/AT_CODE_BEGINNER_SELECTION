@@ -1,10 +1,8 @@
-def calculate2(arr,k):
-    for i in range(len(arr)):
-        sumC = sum(arr[0:i+1])
-        if sumC >= k:
-            return len(arr) - i
+import numpy as np
+from itertools import accumulate
 
-    return 0
+def calculate2(arr,k):
+    return len(arr) - np.searchsorted(list(accumulate(arr)),k)
 
 def calculate(arr,k):
     length = len(arr)

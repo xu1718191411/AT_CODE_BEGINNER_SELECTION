@@ -18,9 +18,6 @@ def calculate(arr,k):
     return result
 
 
-
-
-
 S = input().split(" ")
 N = int(S[0])
 K = int(S[1])
@@ -30,7 +27,4 @@ arr = [int(item) for item in input().split(" ")]
 ret = calculate(arr,K)
 
 print(ret)
-
-
-
 

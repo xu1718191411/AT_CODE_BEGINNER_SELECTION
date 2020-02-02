@@ -129,25 +129,28 @@ def smallestCommon(a, b):
     return a * b / math.gcd(a, b)
 
 # 二分查找
-arr = [10,20,22,23,44,52,54,56,61,78]
-def find(start,end,x):
+def find(start, end, arr, x):
     mid = (start + end) // 2
     midVal = arr[mid]
 
     if end - start == 1:
         s1 = x - arr[start]
         s2 = arr[end] - x
-        if s2 > s1:
+        if s1 < s2:
             return start
         else:
             return end
 
     if midVal > x:
-        return find(start,mid,x)
+        return find(start,mid,arr,x)
     elif midVal < x:
-        return find(mid,end,x)
+        return find(mid,end,arr,x)
     else:
         return mid
 
-result = find(0,10,43)
+
+arr = [10,20,30,40,50,60,70,80,90,100]
+
+result = find(0,10,arr,43)
+
 print(result)

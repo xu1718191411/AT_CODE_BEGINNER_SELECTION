@@ -56,7 +56,6 @@ def half_search(arr, N, startIndex, endIndex):
             return half_search(arr, N, midIndex + 1, endIndex)
 
 
-
 # 二分法找>N 的最小的index
 # 1 2 3 4 5 5
 
@@ -102,10 +101,8 @@ def half_search_2(arr, N, startIndex, endIndex):
             return half_search_2(arr, N, midIndex, endIndex)
 
 
-
 def test_half_search():
     arr = [2, 2, 3, 3, 3, 3, 4, 5, 5, 5, 7, 8, 12]
-
 
     arr = rank(arr)
 
@@ -116,4 +113,41 @@ def test_half_search():
     print(index)
 
 
-test_half_search()
+# atcoder 最小公倍数
+import fractions
+
+
+def smallestCommonAtcoder(a, b):
+    return a * b / fractions.gcd(a, b)
+
+
+# 一般情况下的最小公倍数
+import math
+
+
+def smallestCommon(a, b):
+    return a * b / math.gcd(a, b)
+
+# 二分查找
+arr = [10,20,22,23,44,52,54,56,61,78]
+def find(start,end,x):
+    mid = (start + end) // 2
+    midVal = arr[mid]
+
+    if end - start == 1:
+        s1 = x - arr[start]
+        s2 = arr[end] - x
+        if s2 > s1:
+            return start
+        else:
+            return end
+
+    if midVal > x:
+        return find(start,mid,x)
+    elif midVal < x:
+        return find(mid,end,x)
+    else:
+        return mid
+
+result = find(0,10,43)
+print(result)

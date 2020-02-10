@@ -1,13 +1,21 @@
+from sys import setrecursionlimit
+setrecursionlimit(100000)
+
 n = int(input())
 arr = []
-for i in range(n-1):
+for i in range(n - 1):
     arr.append([int(s) for s in input().split(" ")])
 
-mmk = [[0 for i in range(n+1)] for i in range(n+1)]
+mmk = {}
 
 childNodeNums = [0 for i in range(n)]
 childNodeStatus = [-1 for i in range(n)]
-nodeLines = [0 for i in range(n - 1)]
+
+
+def generateID(fr, to):
+    if to < fr:
+        fr, to = to, fr
+    return fr * 100000 + to
 
 
 def prepare(n, arr):
@@ -34,10 +42,8 @@ def dfs(currentNode, arr, x):
             kk = kk + 1
             if x == kk:
                 kk = kk + 1
-            mmk[currentNode+1][childNodeIndex+1] = kk
+            mmk[generateID(currentNode + 1,childNodeIndex + 1)] = kk
             dfs(childNodeIndex, arr, kk)
-
-
 
 
 data = prepare(n, arr)
@@ -48,4 +54,4 @@ print(max(childNodeNums))
 for ar in arr:
     a0 = ar[0]
     a1 = ar[1]
-    print(mmk[a0][a1])
+    print(mmk[generateID(a0,a1)])

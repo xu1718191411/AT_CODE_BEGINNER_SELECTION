@@ -1,5 +1,6 @@
 from sys import setrecursionlimit
 setrecursionlimit(100000)
+from collections import deque
 
 S = input().split(" ")
 N = int(S[0])
@@ -22,7 +23,6 @@ for i in range(Q):
 def prepare(n, q, arr, prr):
     links = [[] for _ in range(n)]
     values = [0 for _ in range(n)]
-    lineStates = [-1 for _ in range(n)]
     finalValues = [0 for _ in range(n)]
     for ar in arr:
         start = ar[0] - 1
@@ -35,21 +35,26 @@ def prepare(n, q, arr, prr):
         x = pr[1]
         values[i] += x
 
-    return links, values, lineStates, finalValues
+    return links, values, finalValues
 
 
-links, values, lineStates, finalValues = prepare(N, Q, arr, prr)
+links, values, finalValues = prepare(N, Q, arr, prr)
 
 
-def dfs(currentNode, arr, parrentAccumulate):
-    childNodes = links[currentNode]
-    parrentAccumulate += values[currentNode]
-    finalValues[currentNode] = parrentAccumulate
-    lineStates[currentNode] = 1
-    for ch in childNodes:
-        if lineStates[ch] == -1:
-            dfs(ch, arr, parrentAccumulate)
+def bfs():
+    q = deque()
 
+    q.append((0,-1,0))
 
-dfs(0, links, 0)
-print(" ".join([str(s) for s in finalValues]))
+    while len(q) > 0:
+        currentNode,parentNode,parentAccumulate = q.popleft()
+        parentAccumulate += values[currentNode]
+        finalValues[currentNode] += parentAccumulate
+        childNodes = links[currentNode]
+        for ch in childNodes:
+            if ch == parentNode:
+                continue
+            q.append((ch,currentNode,finalValues[currentNode]))
+
+bfs()
+print(*finalValues)

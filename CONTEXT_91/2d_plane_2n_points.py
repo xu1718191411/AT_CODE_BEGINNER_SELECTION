@@ -1,52 +1,28 @@
-N = 3
-ARR = [
-    [2, 0],
-    [3, 1],
-    [1, 3],
-]
+N = int(input())
 
-CRR = [
-    [4, 2],
-    [0, 4],
-    [5, 5]
-]
+ARR = []
+for i in range(N):
+    ARR.append([int(s) for s in input().split(" ")])
+
+CRR = []
+for i in range(N):
+    CRR.append([int(s) for s in input().split(" ")])
 
 
 def calculate(n, arr, crr):
 
-    blue = {}
-    red = {}
+    reds = sorted(arr,key=lambda x:-x[1])
+    blues = sorted(crr,key=lambda x:x[0])
+    counts = 0
 
+    for i,bl in enumerate(blues):
+        for j,rd in enumerate(reds):
 
-    for index,value in enumerate(arr):
-        if red.get(value[1]) == None:
-            red.__setitem__(value[1],[value[0]])
-        else:
-            tmp = red.get(value[1])
-            tmp.append(value[0])
-            tmp = sorted(tmp,key=lambda x:-x)
-            red.__setitem__(value[1],tmp)
-
-    for index, value in enumerate(crr):
-        if blue.get(value[0]) == None:
-            blue.__setitem__(value[0], [value[1]])
-        else:
-            tmp = blue.get(value[0])
-            tmp.append(value[1])
-            tmp = sorted(tmp)
-            blue.__setitem__(value[0], tmp)
-
-    blues = sorted(blue.items(),key=lambda item:item[0])
-
-    reds = sorted(red.items(),key=lambda item:-item[0])
-
-
-    for bx in blues:
-        print(bx)
-        # for rx in reds:
-        #     print(rx)
-
-
-
+            if (rd[0] < bl[0]) and (rd[1] < bl[1]):
+                counts = counts + 1
+                reds[j][1] = 1000
+                reds[j][0] = 1000
+                break
+    print(counts)
 
 calculate(N, ARR, CRR)

@@ -121,7 +121,7 @@ def smallestCommonAtcoder(a, b):
     return a * b / fractions.gcd(a, b)
 
 
-# 一般情况下的最小公倍数
+# 一般情况下的最小公倍数smallestCommon
 import math
 
 

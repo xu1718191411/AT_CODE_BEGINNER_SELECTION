@@ -78,3 +78,5 @@ def judge(possibilities, arr, teacherGoods, teacherBads):
 
 
 calculate(N, ARR)
+
+

@@ -68,15 +68,6 @@ def judge(n, arr, a, b, c, materialA, materialB, materialC, materialNone):
     if materialNone == n:
         return False, -1
 
-    if len(materialA & materialB) > 0:
-        return False, -1
-
-    if len(materialA & materialC) > 0:
-        return False, -1
-
-    if len(materialB & materialC) > 0:
-        return False, -1
-
     if len(materialA) == 0:
         return False, -1
 

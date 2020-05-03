@@ -1,45 +1,29 @@
-import math
+A, B = map(int,input().split())
+
+def yinshufenjie(m):
+    pf = {}
+    for i in range(2, int(m ** 0.5) + 1):
+        while m % i == 0:
+            pf[i] = pf.get(i, 0) + 1
+            m //= i
+    if m > 1: pf[m] = 1
+    return pf
 
 
-# 最大公约数
-def zuidagongyueshu(x, y):
-    if y % x == 0:
-        return x
+def calculate(a,b):
+    s1 = yinshufenjie(a)
+    s2 = yinshufenjie(b)
 
-    if x % y == 0:
-        return y
+    set1 = set()
+    set2 = set()
+    for key in s1.keys():
+        set1.add(key)
 
-    if x < y:
-        return zuidagongyueshu(y % x, x)
-    else:
-        return zuidagongyueshu(x % y, y)
+    for key in s2.keys():
+        set2.add(key)
 
-
-# 分解质因数
-# 30 = 2*3*5
-# 60 = (2,2)*3*5
-# 420 = (2,2)*3*5*7
-# 1260 = (2,2)*(3,2)*5*7
-# 6300 = (2,2)*(3,2)*(5,2)*7
-
-container = []
-def fenjiezhiyinshu(x):
-    for i in range(1, x + 1):
-        if i == 1:
-            continue
-        else:
-            flag = False
-            while x % i == 0:
-                x = int(x / i)
-                flag = True
-
-            if flag:
-                container.append(i)
-                return fenjiezhiyinshu(x)
-
-S = input().split(' ')
-arr = list(map(int, list(S)))
-fenjiezhiyinshu(zuidagongyueshu(arr[0],arr[1]))
-print(len(container)+1)
+    a = set1 & set2
+    print(len(a)+1)
 
 
+calculate(A,B)

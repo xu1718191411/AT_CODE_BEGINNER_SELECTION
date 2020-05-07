@@ -149,8 +149,53 @@ def find(start, end, arr, x):
         return mid
 
 
+
+
 arr = [10,20,30,40,50,60,70,80,90,100]
 
 result = find(0,10,arr,43)
 
 print(result)
+
+
+def Base_10_to_n(X, n):
+    X_dumy = X
+    out = ''
+    while X_dumy>0:
+        out = str(X_dumy%n)+out
+        X_dumy = int(X_dumy/n)
+    return out
+
+# 二分查找
+#bisect.bisect_left()
+
+
+
+def cmb(n, k, mod, fac, ifac):
+    """
+    nCkを計算する
+    """
+    k = min(k, n-k)
+    return fac[n] * ifac[k] * ifac[n-k] % mod
+
+
+def make_tables(mod, n):
+    """
+    階乗テーブル、逆元の階乗テーブルを作成する
+    """
+    fac = [1, 1] # 階乗テーブル・・・(1)
+    ifac = [1, 1] #逆元の階乗テーブル・・・(2)
+    inverse = [0, 1] #逆元テーブル・・・(3)
+
+    for i in range(2, n+1):
+        fac.append((fac[-1] * i) % mod)
+        inverse.append((-inverse[mod % i] * (mod//i)) % mod)
+        ifac.append((ifac[-1] * inverse[-1]) % mod)
+    return fac, ifac
+
+
+def comb(m,n):
+    MOD = 10**9 + 7
+    fac, ifac = make_tables(MOD, m)
+    ans = cmb(m, n, MOD, fac, ifac)
+    return ans

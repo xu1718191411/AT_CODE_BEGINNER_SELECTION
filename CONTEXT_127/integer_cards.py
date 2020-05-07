@@ -1,40 +1,38 @@
-from bisect import bisect_right
-import numpy as np
-def calculate(arr,sArr):
+# N, M = 10, 3
+# ARR = [1, 8, 5, 7, 100, 4, 52, 33, 13, 5]
+# BRR = [
+#     [3, 10],
+#     [4, 30],
+#     [1, 4]
+# ]
 
 
-    for s in range(len(sArr)):
-        arr = np.sort(arr, axis=0)
-
-        k = bisect_right(arr,sArr[s][1])
-
-        if k >= sArr[s][0]:
-            arr[:sArr[s][0]] = sArr[s][1]
-        else:
-            arr[:k] = sArr[s][1]
-
-    return arr
-
-
-S = input()
-
-N = int(S.split(" ")[0])
-M = int(S.split(" ")[1])
-
-arr = [int(s) for s in input().split(" ")]
-arr = np.array(arr)
-
-
-arr2 = []
+N,M = map(int,input().split())
+ARR = list(map(int,input().split()))
+BRR = []
 for i in range(M):
-    tmp = [int(s) for s in input().split(" ")]
-    arr2.append(tmp)
+    BRR.append(list(map(int,input().split())))
 
-arr2 = np.array(arr2)
+def calculate(n, m, arr, brr):
+    raw = []
+    for ar in arr:
+        raw.append([ar, 1])
+    for br in brr:
+        raw.append([br[1], br[0]])
 
+    raw = sorted(raw,key=lambda x:-x[0])
+    # print(raw)
 
+    offset = 0
+    sum = 0
+    for ra in raw:
+        if offset + ra[1] <= n:
+            sum = sum + ra[1] * ra[0]
+            offset = offset + ra[1]
+        else:
+            sum = sum + (n - offset) * ra[0]
+            offset = n
+            break
+    print(sum)
 
-
-result = calculate(arr,arr2)
-
-print(np.sum(result))
+calculate(N, M, ARR, BRR)

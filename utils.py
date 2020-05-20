@@ -199,3 +199,18 @@ def comb(m,n):
     fac, ifac = make_tables(MOD, m)
     ans = cmb(m, n, MOD, fac, ifac)
     return ans
+
+
+
+def modPow(a, n, p):
+    if n == 0:
+        return 1
+
+    if n == 1:
+        return a % p
+
+    if n % 2 == 1:
+        return (a * pow(a, n - 1, p)) % p
+
+    t = pow(a, n // 2, p)
+    return (t * t) % p

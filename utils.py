@@ -214,3 +214,7 @@ def modPow(a, n, p):
 
     t = pow(a, n // 2, p)
     return (t * t) % p
+
+
+# test comb()
+# from scipy.special import comb

@@ -1,4 +1,6 @@
 import math
+
+
 def sushu(n):
     arr = []
     for i in range(2, n + 1):
@@ -32,7 +34,6 @@ for i in range(n + 1):
 for j in shushu:
     marks[j] = True
 
-
 marks2 = []
 result = []
 for i in range(n + 1):
@@ -45,7 +46,7 @@ for i in range(n + 1):
     else:
         if marks[(i + 1) // 2] and marks[i]:
             marks2.append(True)
-            result.append(result[i-1] + 1)
+            result.append(result[i - 1] + 1)
         else:
             marks2.append(False)
             result.append(result[i - 1])
@@ -68,19 +69,14 @@ ARR = [
     [13, 49]
 ]
 
-
 Q = int(input())
 
 ARR = []
 
 for i in range(Q):
-    ARR.append(list(map(int,input().split())))
-
+    ARR.append(list(map(int, input().split())))
 
 for i in range(Q):
     start = ARR[i][0]
     end = ARR[i][1]
     print(result[end] - result[start - 1])
-
-
-

@@ -1,27 +1,37 @@
-import numpy as np
+import math
 
-truths = np.array([1, 1, 0, 0])
-preds = np.array([0.95, 0.55, 0.01, 0.45])
+# N = 4
+# ARR = [10, 30, 40, 20]
 
-loss = np.zeros(4)
+N, K = 5, 3
+ARR = [10, 30, 40, 50, 20]
 
-for i in range(4):
-    if truths[1] == 1:
-        loss[i] = truths[i] * -1 * np.log(preds[i])
-    else:
-        loss[i] = truths[i] * -1 * np.log(1-preds[i])
+#
+# N,K = 3, 1
+# ARR = [10, 20, 10]
 
-alpha = 0.25
-gama = 2.0
-weights = np.zeros(4)
-
-for i in range(4):
-    if truths[i] == 1:
-        weights[i] = alpha * (1 - preds[i]) ** gama
-    else:
-        weights[i] = (1 - alpha) * (1 - preds[i]) ** gama
+# N,K = 2, 100
+# ARR = [10, 10]
 
 
+N, K = map(int, input().split())
+ARR = list(map(int, input().split()))
 
-print(weights)
+def calculate(n, k, arr):
+    result = [math.inf for i in range(n)]
 
+    result[0] = 0
+    result[1] = abs(arr[1] - arr[0])
+
+
+    for i in range(2, n):
+        srr = []
+        for j in range(i-1, i -1 - k, -1):
+            srr.append(abs(arr[i] - arr[j]) + result[j])
+
+        result[i] = min(srr)
+
+    print(result[-1])
+
+
+calculate(N, K, ARR)

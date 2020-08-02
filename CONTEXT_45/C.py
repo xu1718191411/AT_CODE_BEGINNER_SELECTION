@@ -1,51 +1,28 @@
-from collections import deque
-SA = input()
-SB = input()
-SC = input()
+import itertools
 
-def calculate(SA,SB,SC):
-    a1 = list(SA)
-    a2 = list(SB)
-    a3 = list(SC)
-
-    q1 = deque()
-    for a in a1:
-        q1.append(a)
-
-    q2 = deque()
-
-    for a in a2:
-        q2.append(a)
-
-    q3 = deque()
-
-    for a in a3:
-        q3.append(a)
-
-    arr = [q1,q2,q3]
-    stt = ["A","B","C"]
-
-    currentIndex = 0
-
-    while currentIndex >= 0:
-        if len(arr[currentIndex]) == 0:
-            break
-
-        currentValue = arr[currentIndex].popleft()
-
-        if currentValue == "a":
-            currentIndex = 0
-            continue
-
-        if currentValue == "b":
-            currentIndex = 1
-            continue
-
-        if currentValue == "c":
-            currentIndex = 2
-            continue
-
-    print(stt[currentIndex])
+S = input()
 
 
-calculate(SA,SB,SC)
+def calculate(s):
+    arr = list(s)
+
+    totalLength = len(s)
+
+    spliteIndexes = [i for i in range(1,totalLength)]
+
+    result = 0
+    for i in range(1, totalLength):
+        for item in itertools.combinations(spliteIndexes, i):
+            ttr = [0]
+            ttr.extend(list(item))
+            ttr.append(totalLength)
+
+
+            for i in range(len(ttr) - 1):
+                result += int("".join(arr[ttr[i]:ttr[i+1]]))
+    print(result + int(s))
+
+
+calculate(S)
+
+

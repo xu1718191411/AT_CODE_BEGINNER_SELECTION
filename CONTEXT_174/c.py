@@ -1,20 +1,34 @@
 N = int(input())
+S = input()
 
 
+def calculate(n, s):
+    arr = list(s)
+    result = []
 
-def calculate(n):
-    index = 1
 
-    if n % 2 == 0:
-        print(-1)
+    leftW = 0
+    rightR = arr.count('R')
+
+
+    if rightR == 0:
+        print(0)
         return
 
-    while not condition(index,n):
-        index = index + 1
+    for i in range(n):
+        val = arr[i]
 
-    print(index)
+        if val == 'R':
+            rightR -= 1
 
-def condition(index,n):
-    return (((pow(10,index) - 1) / 9)  %  n) == 0
+        if val == 'W':
+            leftW += 1
 
-calculate(N)
+        result.append(max(leftW,rightR))
+
+    if len(result) == 0:
+        print(0)
+    else:
+        print(min(result))
+
+calculate(N, S)

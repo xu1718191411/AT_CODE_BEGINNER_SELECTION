@@ -1,32 +1,5 @@
 from collections import deque
 
-R, C = 7, 8
-sy, sx = 2, 2
-gy, gx = 4, 5
-
-ARR = [
-    "########",
-    "#......#",
-    "#.######",
-    "#..#...#",
-    "#..##..#",
-    "##.....#",
-    "########"
-]
-
-#
-# R,C = 5, 8
-# sy,sx = 2, 2
-# gy,gx = 2, 4
-# ARR = [
-#     "########",
-#     "#.#....#",
-#     "#.###..#",
-#     "#......#",
-#     "########"
-# ]
-
-
 R, C = map(int, input().split())
 sy, sx = map(int, input().split())
 
@@ -40,30 +13,24 @@ for i in range(R):
 def calclulate(r, c, sy, sx, gy, gx, arr):
     q = deque()
 
-    status = [[0 for j in range(c)] for i in range(r)]
-    q.append((sx - 1, sy - 1, 0))
+    status = [[-1 for j in range(c)] for i in range(r)]
 
+    status[sy - 1][sx - 1] = 0
+    q.append((sy - 1, sx - 1))
     while len(q) > 0:
-        currentX, currentY, cost = q.popleft()
+        currentY, currentX = q.popleft()
 
-        childrens = []
-        childrens.append((currentX - 1, currentY))
-        childrens.append((currentX, currentY - 1))
-        childrens.append((currentX + 1, currentY))
-        childrens.append((currentX, currentY + 1))
+        childrens = [(currentY, currentX - 1), (currentY + 1, currentX), (currentY, currentX + 1),
+                     (currentY - 1, currentX)]
 
         for child in childrens:
-            childX, childY = child
-
+            childY, childX = child
             if (childX >= 0) and (childX < c) and (childY >= 0) and (childY < r):
-                if (arr[childY][childX] == "."):
-                    if (status[childY][childX] == 0):
-                        q.append((childX, childY, cost + 1))
-                        status[childY][childX] = cost + 1
-                    else:
-                        if status[childY][childX] > (cost + 1):
-                            q.append((childX, childY, cost + 1))
-                            status[childY][childX] = cost + 1
+                if arr[childY][childX] == ".":
+                        if (status[childY][childX] == -1):
+                            q.append((childY,childX))
+                            cost = status[currentY][currentX]
+                            status[childY][childX] = status[currentY][currentX] + 1
 
     print(status[gy - 1][gx - 1])
 
